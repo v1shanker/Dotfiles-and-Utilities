@@ -10,6 +10,7 @@
 #  ---------------------------------------------------------------------------
 #
 #  Description:  Holds all bash configurations and aliases.
+#  *If using on a mac, add 'source ~/.bashrc' to .bash_profile
 #
 #  Sections:
 #  1.   Environment Configuration
