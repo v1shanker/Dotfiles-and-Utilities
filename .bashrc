@@ -10,7 +10,6 @@
 #  ---------------------------------------------------------------------------
 #
 #  Description:  Holds all bash configurations and aliases.
-#  *If using on a mac, add 'source ~/.bashrc' to .bash_profile
 #
 #  Sections:
 #  1.   Environment Configuration
@@ -32,7 +31,7 @@
 #   Change Prompt
 #   ------------------------------------------------------------
     force_color_prompt=yes
-    long_promp_path=
+    long_promp_path=yes
 
     if [ -n "$force_color_prompt" ]; then
         if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -44,7 +43,7 @@
     if [ "$color_prompt" = yes ]; then
         if [ "$long_promp_path" = yes ]; then
             # Long path, no host:
-            PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+            PS1="\[$(tput bold)\]\[$(tput setaf 160)\][\u@\h:\[$(tput setaf 160)\]\w]\n$ \[$(tput sgr0)\]"
             # Long path, with host:
             #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
         else
@@ -70,12 +69,12 @@
 #   Set Paths
 #   ------------------------------------------------------------
     # usr/local/bin needs to come first for homebrew and using correct vim build
-    export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-    export PATH="${PATH}:/usr/local/git/bin:/sw/bin/:/usr/local/bin:/usr/local/:/usr/local/sbin:/usr/local/mysql/bin:"
-    export PATH="${PATH}:/Library/Frameworks/Python.framework/Versions/2.7/bin:/Users/Vikram/android-sdk/platform-tools"
-    export PATH="${PATH}:/Applications/adt-bundle-mac-x86_64-20140321/sdk/tools"
-    export PATH="${PATH}:/Applications/adt-bundle-mac-x86_64-20140321/sdk/platform-tools"
-
+    export PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:/Users/Vikram/android-sdk/platform-tools"
+    export PATH="${PATH}:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    export PATH="${PATH}:/usr/local/git/bin:/sw/bin:/usr/local/bin:/usr/local:/usr/local/sbin:/usr/local/mysql/bin:"
+    export PATH=$PATH:$HOME/esp/xtensa-esp32-elf/bin
+    export IDF_PATH=~/esp/esp-idf
+    #export PATH="$HOME/.cargo/bin:$PATH"
 
 #   Set Default Editor (change 'Nano' to the editor of your choice)
 #   ------------------------------------------------------------
@@ -87,11 +86,10 @@
     export BLOCKSIZE=1k
 
 #   Add color to terminal
-#   (this is all commented out as I use Mac Terminal Profiles)
 #   from http://osxdaily.com/2012/02/21/add-color-to-the-terminal-in-mac-os-x/
 #   ------------------------------------------------------------
     export CLICOLOR=1
-    export LSCOLORS=ExGxxxdxBxeaeahahahaha
+    export LSCOLORS=ExFxbxdxCxegedabagacad
 
 #   Check the window size after each command resize when necessary
     shopt -s checkwinsize
@@ -100,29 +98,29 @@
 #   2.  MAKE TERMINAL BETTER
 #   -----------------------------
 
-#   SSH aliases
-#   ------------------------------------------------------------
-    alias spmp='ssh synergy@pmp-android.pc.cs.cmu.edu'
-    alias ssynergy='ssh vikram@synergylabs.org'
+#   alias commonly used directory
+#   -----------------------------------------------------------
+    alias cdgb='cd ~/gridballast/Source'
+    alias cdml='~/Documents/2 College Files/Fall 2017/10601'
 
 #   prefered implementations
 #   ------------------------------------------------------------
-    alias cp='cp -iv'                           # Preferred 'cp' implementation
-    alias mv='mv -iv'                           # Preferred 'mv' implementation
-    alias mkdir='mkdir -pv'                     # Preferred 'mkdir' implementation
-    alias ll='ls -FGlhp'                        # Preferred 'ls' implementation
-    alias lla='ls -FGlAhp'                      # Preferred 'ls' implementation
-    alias less='less -FSRXc'                    # Preferred 'less' implementation
-    alias grep='grep --color=auto'              # Preferred 'grep' implementation
-
+    alias cp='cp -iv'
+    alias mv='mv -iv'
+    alias mkdir='mkdir -pv'
+    alias ll='ls -FGlhp'
+    alias lla='ls -FGlAhp'
+    alias less='less -FSRXc'
+    alias grep='grep --color=auto'
+    alias pdflatex='/Library/TeX/Root/bin/x86_64-darwin/pdflatex'
+    alias chrome='open -a "Google Chrome"'
 #   git aliases and implementations
 #   ------------------------------------------------------------
     alias ga='git add'
     alias gc='git commit'
     alias gl='git log --pretty=oneline -n 20 --graph --abbrev-commit'
     alias gla='log --graph --color --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%x20(%ce)%n%x20%s%n"'
-    alias gs='git status -s'
-    alias gsa='git status'
+    alias gs='git status'
     alias gd='git diff -p --stat'
     # `gdi $number` shows the diff between the state `$number` revisions ago and the current state
     alias gdi='d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d'
@@ -145,9 +143,6 @@
     alias .4='cd ../../../../'                  # Go back 4 directory levels
     alias .5='cd ../../../../../'               # Go back 5 directory levels
     alias .6='cd ../../../../../../'            # Go back 6 directory levels
-    alias cdpmp='cd ~/Pmp-Android'
-    alias cdpmps='cd ~/PmP-Android-Server/PMPAndroid'
-
 
 #   random handy functions and aliases
 #   ------------------------------------------------------------
@@ -155,7 +150,6 @@
     alias f='open -a Finder ./'                 # f:            Opens current directory in MacOS Finder
     alias ~="cd ~"                              # ~:            Go Home
     alias c='clear'                             # c:            Clear terminal display
-    alias which='type -all'                     # which:        Find executables
     alias path='echo -e ${PATH//:/\\n}'         # path:         Echo all executable Paths
     alias show_options='shopt'                  # Show_options: display bash options settings
     alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
@@ -163,11 +157,10 @@
     alias hidden='ls -a | grep "^\..*"'
     alias linelength='wc -L'
     alias v='vim -p'
-    mcd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
+    mkd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
     trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
     ql () { qlmanage -p "$*" >& /dev/null; }    # ql:           Opens any file in MacOS Quicklook Preview
     alias DT='tee ~/Desktop/terminalOut.txt'    # DT:           Pipe content to file on MacOS Desktop
-    eval $(thefuck --alias)
     if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
     fi
@@ -192,31 +185,13 @@
 #   -------------------------------
     alias ccomp='gcc -Wall -Wextra -Werror -std=c99 -pedantic'
     alias valgrind-leak='valgrind --leak-check=full --show-reachable=yes'
-    
+
 #   -------------------------------
 #   3.  FILE AND FOLDER MANAGEMENT
 #   -------------------------------
 
     zipf () { zip -r "$1".zip "$1" ; }          # zipf:         To create a ZIP archive of a folder
     alias numFiles='echo $(ls -1 | wc -l)'      # numFiles:     Count of non-hidden files in current dir
-    
-#   cdf:  'Cd's to frontmost window of MacOS Finder
-#   ------------------------------------------------------
-    cdf () {
-        currFolderPath=$( /usr/bin/osascript <<EOT
-            tell application "Finder"
-                try
-            set currFolder to (folder of the front window as alias)
-                on error
-            set currFolder to (path to desktop folder as alias)
-                end try
-                POSIX path of currFolder
-            end tell
-EOT
-        )
-        echo "cd to \"$currFolderPath\""
-        cd "$currFolderPath"
-    }
 
 #   extract:  Extract most know archives with one command
 #   ---------------------------------------------------------
