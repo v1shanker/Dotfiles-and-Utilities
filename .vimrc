@@ -1,62 +1,46 @@
-
 set nocompatible
+filetype off
 
 " === Package Management ===
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'gmarik/Vundle.vim'
+call plug#begin('~/.vim/plugged')
 
 " Appearance
-Plugin 'bling/vim-airline'
+Plug 'bling/vim-airline'
 
 " File Management
-Plugin 'scrooloose/nerdtree'            " File navigator sidebar
-Plugin 'jistr/vim-nerdtree-tabs'        " NERDTree in all tabs
-Plugin 'ctrlpvim/ctrlp.vim'             " Find files
-Plugin 'vim-scripts/a.vim'              " Open alternates
-Plugin 'airblade/vim-gitgutter'         " Show git diff symbols in gutter
-"Plugin 'tpope/vim-fugitive'             " Use git commands without leaving vim
+Plug 'scrooloose/nerdtree'            " File navigator sidebar
+Plug 'jistr/vim-nerdtree-tabs'        " NERDTree in all tabs
+Plug 'ctrlpvim/ctrlp.vim'             " Find files
+Plug 'vim-scripts/a.vim'              " Open alternates
+Plug 'airblade/vim-gitgutter'         " Show git diff symbols in gutter
 
 " Code Editing
-Plugin 'scrooloose/syntastic'           " Check for syntax errors
-Plugin 'valloric/youcompleteme'         " Autocomplete
-Plugin 'ntpeters/vim-better-whitespace' " Strip trailing whitespace
-Plugin 'godlygeek/tabular'              " Align CSV files and Markdown tables
-Plugin 'HTML-AutoCloseTag'              " Insert closing HTML tags
-Plugin 'Raimondi/delimitMate'           " Auto closing
+"Plug 'scrooloose/syntastic'           " Check for syntax errors
+Plug 'ntpeters/vim-better-whitespace' " Strip trailing whitespace
+Plug 'godlygeek/tabular'              " Align CSV files and Markdown tables
+Plug 'Raimondi/delimitMate'           " Auto closing
 
 " Tags
-Plugin 'szw/vim-tags'                   " Generate tag files
-Plugin 'majutsushi/tagbar'              " Display tags
+Plug 'szw/vim-tags'                   " Generate tag files
+Plug 'majutsushi/tagbar'              " Display tags
 
 " Syntax
-Plugin 'sudar/vim-arduino-syntax'       " Arduino support
-Plugin 'vim-jp/vim-cpp'                 " Improved C/C++ highlighting
-Plugin 'JulesWang/css.vim'              " CSS Syntax
-Plugin 'tpope/vim-git'                  " Better diff/commit highlighting
-Plugin 'jez/vim-ispc'                   " Intel SPMD Program Compiler
-Plugin 'pangloss/vim-javascript'        " Javascript
-Plugin 'sheerun/vim-json'               " JSON, slightly different from js
-Plugin 'LaTeX-Box-Team/LaTeX-Box'       " LaTeX
-Plugin 'tpope/vim-liquid'               " Liquid templates
-Plugin 'plasticboy/vim-markdown'        " Featureful .md support,
+Plug 'tpope/vim-git'                  " Better diff/commit highlighting
+Plug 'sheerun/vim-json'               " JSON, slightly different from js
+Plug 'LaTeX-Box-Team/LaTeX-Box'       " LaTeX
+Plug 'tpope/vim-liquid'               " Liquid templates
+Plug 'plasticboy/vim-markdown'        " Featureful .md support,
                                         "   must be after tabular
-Plugin 'othree/nginx-contrib-vim'       " nginx configu files
-Plugin 'mitsuhiko/vim-python-combined'  " Python 2 and 3 support
-Plugin 'rust-lang/rust.vim'             " Rust
-Plugin 'cakebaker/scss-syntax.vim'      " SCSS
-Plugin 'keith/swift.vim'                " Swift!
-Plugin 'tmux-plugins/vim-tmux'          " Syntax highlighting for tmux config
+Plug 'othree/nginx-contrib-vim'       " nginx configu files
+Plug 'mitsuhiko/vim-python-combined'  " Python 2 and 3 support
+Plug 'rust-lang/rust.vim'             " Rust
 
 " Misc
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'jez/vim-superman'
-Plugin 'ConradIrwin/vim-bracketed-paste' " Automatically detect pasting
-Plugin 'tpope/vim-dispatch'              " Asynchronous commands
+Plug 'ConradIrwin/vim-bracketed-paste' " Automatically detect pasting
+Plug 'tpope/vim-dispatch'              " Asynchronous commands
 
-call vundle#end()
+call plug#end()
+
 filetype plugin indent on
 
 " === General ===
@@ -97,11 +81,13 @@ endif
 syntax on           " Syntax highlighting
 set number          " Line numbers
 set ruler           " Cursor position in file
+set relativenumber  " show relative line numbers on other lines"
 " set background=dark " Always keep a dark background
 " set cursorline      " Highlights/underlines current editor line
 " set cursorcolumn    " Highlights/underlines current editor column
 set cc=81           " Puts barrier line at 80 columns
 " TODO: Pick a universal color scheme
+set lazyredraw
 
 " === Formatting ===
 set wrap
@@ -109,12 +95,11 @@ set textwidth=79
 set formatoptions=qrn1
 
 " === Whitespace ===
-set autoindent
-set smartindent
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
 set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=0
+
 
 " === Keybindings ===
 " Set leader to Space, with comma as a fallback and as something to display
@@ -163,7 +148,7 @@ nmap N Nzz
 " Jump to the end of the line when pasting
 nnoremap P p$
 
-" === Plugin Settings ===
+" === Plug Settings ===
 
 " Built-in vim plugins
 let g:netrw_liststyle=3      " When viewing directories, show nested tree mode
@@ -221,8 +206,8 @@ let g:airline#extensions#hunks#non_zero_only = 1
 " Don't highlight whitespace in git commit messages (for diffs)...
 let g:better_whitespace_filetypes_blacklist=['gitcommit']
 " ... but strip it on save so that we're still safe
-autocmd FileType gitcommit autocmd BufWritePre <buffer> StripWhitespace
-
+autocmd FileType git commit autocmd BufWritePre <buffer> StripWhitespace
+nnoremap <Leader>sw :StripWhitespace<CR>
 " Tabularize
 :abbrev Table Tabularize
 
@@ -268,7 +253,7 @@ augroup myFiletypes
 
 augroup END
 
-" === Optional (Plugin) ===
+" === Optional (Plug) ===
 " Uncomment to open tagbar automatically whenever possible
 " autocmd BufEnter * nested :call tagbar#autoopen(0)
 
