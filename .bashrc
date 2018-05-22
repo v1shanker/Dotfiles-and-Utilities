@@ -69,16 +69,12 @@
 #   Set Paths
 #   ------------------------------------------------------------
     # usr/local/bin needs to come first for homebrew and using correct vim build
-    export PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:/Users/Vikram/android-sdk/platform-tools"
-    export PATH="${PATH}:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-    export PATH="${PATH}:/usr/local/git/bin:/sw/bin:/usr/local/bin:/usr/local:/usr/local/sbin:/usr/local/mysql/bin:"
-    export PATH=$PATH:$HOME/esp/xtensa-esp32-elf/bin
-    export IDF_PATH=~/esp/esp-idf
-    #export PATH="$HOME/.cargo/bin:$PATH"
+    export PATH="${PATH}:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local"
+    export PATH="${PATH}:/usr/local/git/bin:/sw/bin"
 
 #   Set Default Editor (change 'Nano' to the editor of your choice)
 #   ------------------------------------------------------------
-    export EDITOR=/usr/bin/vim
+    export EDITOR=/usr/local/bin/nvim
 
 #   Set default blocksize for ls, df, du
 #   from this: http://hints.macworld.com/comment.php?mode=view&cid=24491
@@ -146,6 +142,7 @@
 
 #   random handy functions and aliases
 #   ------------------------------------------------------------
+    alias subl='open -a "Sublime Text"'         #               Open with Sublime Text
     alias edit='subl'                           # edit:         Opens any file in sublime editor
     alias f='open -a Finder ./'                 # f:            Opens current directory in MacOS Finder
     alias ~="cd ~"                              # ~:            Go Home
