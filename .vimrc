@@ -91,13 +91,13 @@ set lazyredraw
 
 " === Formatting ===
 set wrap
-set textwidth=79
+set textwidth=120
 set formatoptions=qrn1
 
 " === Whitespace ===
 set expandtab
-set tabstop=2
-set softtabstop=2
+set tabstop=4
+set softtabstop=4
 set shiftwidth=0
 
 
