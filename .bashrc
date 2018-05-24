@@ -74,7 +74,7 @@
 
 #   Set Default Editor (change 'Nano' to the editor of your choice)
 #   ------------------------------------------------------------
-    export EDITOR=/usr/local/bin/nvim
+    export EDITOR=/usr/bin/vim
 
 #   Set default blocksize for ls, df, du
 #   from this: http://hints.macworld.com/comment.php?mode=view&cid=24491
@@ -93,12 +93,6 @@
 #   -----------------------------
 #   2.  MAKE TERMINAL BETTER
 #   -----------------------------
-
-#   alias commonly used directory
-#   -----------------------------------------------------------
-    alias cdgb='cd ~/gridballast/Source'
-    alias cdml='~/Documents/2 College Files/Fall 2017/10601'
-
 #   prefered implementations
 #   ------------------------------------------------------------
     alias cp='cp -iv'
@@ -108,7 +102,6 @@
     alias lla='ls -FGlAhp'
     alias less='less -FSRXc'
     alias grep='grep --color=auto'
-    alias pdflatex='/Library/TeX/Root/bin/x86_64-darwin/pdflatex'
     alias chrome='open -a "Google Chrome"'
 #   git aliases and implementations
 #   ------------------------------------------------------------
@@ -152,7 +145,7 @@
     alias fix_stty='stty sane'                  # fix_stty:     Restore terminal settings when screwed up
     alias cic='set completion-ignore-case On'   # cic:          Make tab-completion case-insensitive
     alias hidden='ls -a | grep "^\..*"'
-    alias linelength='wc -L'
+    alias linelength='wc -L'                    # this only works on GNU
     alias v='vim -p'
     mkd () { mkdir -p "$1" && cd "$1"; }        # mcd:          Makes new Dir and jumps inside
     trash () { command mv "$@" ~/.Trash ; }     # trash:        Moves a file to the MacOS trash
